@@ -1,0 +1,155 @@
+/* ===========================================================
+   HomeCraft — Online Home & Lifestyle Shopping Platform
+   Theme stylesheet (visual layer only — no app logic here)
+   =========================================================== */
+
+:root{
+  --hc-terracotta: #C1652F;
+  --hc-terracotta-dark: #A6521F;
+  --hc-sage: #7C9473;
+  --hc-sage-dark: #62795A;
+  --hc-cream: #FAF3EA;
+  --hc-cream-deep: #F1E6D8;
+  --hc-charcoal: #3A342E;
+  --hc-linen: #FFFDFB;
+  --hc-gold: #D9A441;
+  --hc-danger: #B23A2E;
+  --hc-shadow: 0 8px 24px rgba(58,52,46,0.08);
+}
+
+body{
+  background-color: var(--hc-cream);
+  color: var(--hc-charcoal);
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, .card-title{
+  font-family: Georgia, 'Times New Roman', serif;
+  color: var(--hc-charcoal);
+  letter-spacing: .3px;
+}
+
+.container{
+  background-color: var(--hc-linen);
+  padding: 32px 28px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  border-radius: 14px;
+  box-shadow: var(--hc-shadow);
+}
+
+/* ---- Header ---- */
+header{
+  background: linear-gradient(120deg, var(--hc-charcoal), #4d453b) !important;
+  border-bottom: 3px solid var(--hc-terracotta);
+}
+header h1{
+  color: var(--hc-linen) !important;
+  font-size: 1.7rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+header h1::before{
+  content: "\1F3E1";
+  font-size: 1.4rem;
+}
+
+/* ---- Buttons ---- */
+.btn-primary{
+  background-color: var(--hc-terracotta);
+  border-color: var(--hc-terracotta);
+}
+.btn-primary:hover{
+  background-color: var(--hc-terracotta-dark);
+  border-color: var(--hc-terracotta-dark);
+}
+.btn-secondary{
+  background-color: var(--hc-sage);
+  border-color: var(--hc-sage);
+  color: #fff;
+}
+.btn-secondary:hover{
+  background-color: var(--hc-sage-dark);
+  border-color: var(--hc-sage-dark);
+  color: #fff;
+}
+.btn-success{
+  background-color: var(--hc-sage-dark);
+  border-color: var(--hc-sage-dark);
+}
+.btn-danger{
+  background-color: var(--hc-danger);
+  border-color: var(--hc-danger);
+}
+.btn-warning{
+  background-color: var(--hc-gold);
+  border-color: var(--hc-gold);
+  color: var(--hc-charcoal);
+}
+.btn-link{
+  color: var(--hc-terracotta);
+}
+
+/* ---- Cards (product grid, dashboard tiles) ---- */
+.card{
+  border: none;
+  border-radius: 12px;
+  box-shadow: var(--hc-shadow);
+  overflow: hidden;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(58,52,46,0.14);
+}
+.card-img-top{
+  border-bottom: 3px solid var(--hc-cream-deep);
+}
+.card-footer{
+  border-top: 1px solid var(--hc-cream-deep) !important;
+}
+.text-primary{
+  color: var(--hc-terracotta) !important;
+}
+
+/* ---- Tables ---- */
+.table thead.thead-dark th{
+  background-color: var(--hc-charcoal);
+  color: var(--hc-linen);
+  border-color: var(--hc-charcoal);
+}
+.table-striped tbody tr:nth-of-type(odd){
+  background-color: var(--hc-cream-deep);
+}
+
+/* ---- Forms ---- */
+.form-control:focus{
+  border-color: var(--hc-terracotta);
+  box-shadow: 0 0 0 .2rem rgba(193,101,47,.18);
+}
+label{
+  font-weight: 600;
+  color: var(--hc-charcoal);
+}
+
+/* ---- Alerts ---- */
+.alert-danger{
+  background-color: #F6DCD7;
+  border-color: var(--hc-danger);
+  color: var(--hc-danger);
+}
+
+/* ---- Footer ---- */
+.hc-footer{
+  background-color: var(--hc-charcoal);
+  color: var(--hc-cream-deep);
+  text-align: center;
+  padding: 16px 10px;
+  margin-top: 30px;
+  border-radius: 0 0 10px 10px;
+  font-size: .9rem;
+}
+.hc-footer a{
+  color: var(--hc-gold);
+}

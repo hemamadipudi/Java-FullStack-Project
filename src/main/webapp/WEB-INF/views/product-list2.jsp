@@ -1,0 +1,252 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product List - HomeCraft</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        html, body{
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            cursor: none;
+            background:
+                radial-gradient(circle at 10% 10%, rgba(193,101,47,.10), transparent 40%),
+                radial-gradient(circle at 90% 30%, rgba(124,148,115,.12), transparent 45%),
+                radial-gradient(circle at 50% 90%, rgba(217,164,65,.10), transparent 45%),
+                #FAF3EA !important;
+            background-attachment: fixed;
+        }
+
+        .hc-topbar{
+            background: linear-gradient(120deg, #3A342E, #4d453b);
+            border-bottom: 3px solid #C1652F;
+            padding: 16px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #FFFDFB;
+        }
+        .hc-topbar .hc-brand{
+            display: flex; align-items: center; gap: 10px;
+            font-family: 'Playfair Display', serif; font-size: 1.5rem;
+        }
+        .hc-topbar .hc-user-info{ display: flex; align-items: center; gap: 14px; font-size: .92rem; }
+        .hc-topbar .hc-logout-btn{
+            background: linear-gradient(120deg, #D9A441, #C1652F);
+            color: #3A342E; border: none; padding: 6px 16px; border-radius: 20px;
+            font-weight: 600; font-size: .8rem; text-decoration: none;
+            cursor: none; transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .hc-topbar .hc-logout-btn:hover{ transform: translateY(-2px); box-shadow: 0 8px 18px rgba(217,164,65,.4); color: #3A342E; }
+
+        .container{
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .hc-panel{
+            background: #FFFDFB;
+            border-radius: 18px;
+            padding: 34px 30px;
+            box-shadow: 0 16px 36px rgba(58,52,46,.10);
+        }
+
+        .hc-eyebrow{
+            display: block;
+            font-size: .72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #C1652F;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .hc-panel h1{
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            color: #3A342E;
+            margin: 0 0 24px;
+        }
+
+        .hc-simple-table{
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            width: 100%;
+        }
+        .hc-simple-table thead th{
+            border: none;
+            color: #3A342E;
+            font-size: .74rem;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+            padding-bottom: 6px;
+        }
+        .hc-simple-table tbody tr{ background: #FAF3EA; }
+        .hc-simple-table tbody td{
+            border: none;
+            padding: 14px;
+            font-size: .9rem;
+            color: #3A342E;
+            vertical-align: middle;
+        }
+        .hc-simple-table tbody tr td:first-child{ border-radius: 10px 0 0 10px; }
+        .hc-simple-table tbody tr td:last-child{ border-radius: 0 10px 10px 0; }
+
+        .hc-qty-input{ width: 60px !important; border-radius: 8px !important; }
+        .hc-add-cart-btn{
+            border-radius: 24px;
+            padding: 6px 18px;
+            font-weight: 600;
+            font-size: .84rem;
+            border: none;
+            background: linear-gradient(120deg, #D9A441, #C1652F);
+            color: #3A342E;
+            box-shadow: 0 8px 18px rgba(217,164,65,.35);
+            transition: transform .2s ease, box-shadow .2s ease;
+            cursor: none;
+        }
+        .hc-add-cart-btn:hover{ transform: translateY(-2px); box-shadow: 0 12px 24px rgba(217,164,65,.5); color: #3A342E; }
+
+        .hc-action-row{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 26px;
+        }
+        .hc-btn-pill{
+            display: inline-block;
+            border: none;
+            border-radius: 26px;
+            padding: 10px 26px;
+            font-weight: 600;
+            font-size: .88rem;
+            cursor: none;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .hc-btn-gold{
+            color: #3A342E;
+            background: linear-gradient(120deg, #D9A441, #C1652F);
+            box-shadow: 0 10px 22px rgba(217,164,65,.35);
+        }
+        .hc-btn-gold:hover{ transform: translateY(-2px); box-shadow: 0 14px 28px rgba(217,164,65,.5); color: #3A342E; }
+        .hc-btn-sage{
+            color: #fff;
+            background: linear-gradient(120deg, #7C9473, #62795A);
+            box-shadow: 0 10px 22px rgba(124,148,115,.35);
+        }
+        .hc-btn-sage:hover{ transform: translateY(-2px); box-shadow: 0 14px 28px rgba(124,148,115,.5); color: #fff; }
+
+        .hc-footer-strip{ text-align: center; padding: 26px 10px; color: #8a7f72; font-size: .85rem; }
+
+        .hc-cursor-dot{
+            position: fixed; top: 0; left: 0; width: 10px; height: 10px; margin: -5px 0 0 -5px;
+            border-radius: 50%; background: #D9A441;
+            box-shadow: 0 0 14px 5px rgba(217,164,65,.6);
+            pointer-events: none; z-index: 9999; transition: transform .08s ease;
+        }
+        .hc-sparkle{
+            position: fixed; top: 0; left: 0; width: 6px; height: 6px;
+            pointer-events: none; z-index: 9998; border-radius: 50%;
+            background: radial-gradient(circle, #FFFDFB 0%, #D9A441 60%, transparent 75%);
+            animation: hcSparkleFade .7s ease-out forwards;
+        }
+        @keyframes hcSparkleFade{
+            0%{ opacity: 1; transform: translate(0,0) scale(1); }
+            100%{ opacity: 0; transform: translate(var(--dx), var(--dy)) scale(.2); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hc-topbar">
+        <div class="hc-brand">&#127968; HomeCraft</div>
+        <c:if test="${loggedInUser != null}">
+            <div class="hc-user-info">
+                <span>Welcome, ${loggedInUser.username}!</span>
+                <a href="/logout" class="hc-logout-btn">Sign Out</a>
+            </div>
+        </c:if>
+    </div>
+
+    <div class="container">
+        <div class="hc-panel">
+            <span class="hc-eyebrow">HomeCraft Catalog</span>
+            <h1>Product List</h1>
+
+            <table class="hc-simple-table">
+                <thead>
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="product" items="${products}">
+                        <tr>
+                            <td>${product.id}</td>
+                            <td>${product.name}</td>
+                            <td>${product.description}</td>
+                            <td>₹${product.price}</td>
+                            <td>
+                                <form action="/cart/add" method="post" class="d-flex align-items-center">
+                                    <input type="hidden" name="productId" value="${product.id}">
+                                    <input type="number" name="quantity" value="1" min="1" class="form-control form-control-sm hc-qty-input mr-2">
+                                    <button type="submit" class="hc-add-cart-btn">Add to Cart</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+
+            <div class="hc-action-row">
+                <c:if test="${loggedInUser.role == 'ADMIN'}">
+                    <a href="/products/add" class="hc-btn-pill hc-btn-gold">+ Add New Product</a>
+                </c:if>
+                <a href="/cart" class="hc-btn-pill hc-btn-sage">View Cart</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="hc-footer-strip">
+        &copy; HomeCraft — Online Home &amp; Lifestyle Shopping Platform
+    </div>
+
+    <div class="hc-cursor-dot" id="hcCursorDot"></div>
+
+    <script>
+        var dot = document.getElementById('hcCursorDot');
+        document.addEventListener('mousemove', function (e) {
+            dot.style.left = e.clientX + 'px';
+            dot.style.top = e.clientY + 'px';
+            spawnSparkle(e.clientX, e.clientY);
+        });
+        var lastSpark = 0;
+        function spawnSparkle(x, y) {
+            var now = Date.now();
+            if (now - lastSpark < 40) return;
+            lastSpark = now;
+            var s = document.createElement('div');
+            s.className = 'hc-sparkle';
+            var angle = Math.random() * Math.PI * 2;
+            var dist = 16 + Math.random() * 22;
+            s.style.setProperty('--dx', (Math.cos(angle) * dist) + 'px');
+            s.style.setProperty('--dy', (Math.sin(angle) * dist) + 'px');
+            s.style.left = x + 'px';
+            s.style.top = y + 'px';
+            document.body.appendChild(s);
+            setTimeout(function () { s.remove(); }, 700);
+        }
+    </script>
+</body>
+</html>
